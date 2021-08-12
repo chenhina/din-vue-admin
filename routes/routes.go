@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.study.com/hina/giligili/controller"
 	"go.study.com/hina/giligili/logger"
+	"go.study.com/hina/giligili/middlewares"
 
-	"go.study.com/hina/giligili/settings"
 	"net/http"
 )
 
@@ -18,33 +18,37 @@ func SetUp(mode string) *gin.Engine {
 	if err := controller.InitTrans("zh"); err != nil {
 		fmt.Printf("init validator trans failed, err:%v\n", err)
 	}
-
 	r := gin.New()
 	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+	r.Use(middlewares.Cors())
 
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hina")
-	})
+	r.StaticFS("/media", http.Dir("./media"))
 
-	r.GET("/version", func(c *gin.Context) {
-
-		c.String(http.StatusOK, settings.Conf.Version)
-
-	})
-
-	v1 := r.Group("/api/v1")
-	v1.POST("/ping", controller.Ping)
-
+	baseGroup := r.Group("")
 	{
-		v1.POST("/video",controller.CreateVideo)
-		v1.GET("/video/:id",controller.DetrieveVideo)
-		v1.GET("/videos",controller.ListVideo)
-		v1.PUT("/video/:id",controller.UpdateVideo)
-		v1.DELETE("/video/:id",controller.DeleteVideo)
+		// 登录
+		InitBaseRouter(baseGroup)
 	}
 
-	//pprof.Register(r)  // 注册pprof相关路由
+	homeGroup := r.Group("admin")
+	// jwt鉴权与casbin权限管理
+	homeGroup.Use(middlewares.JWTAuthMiddleware()).Use(middlewares.CheckRedisToken())
+	{
+		InitAdminRouter(homeGroup)
+		InitPermissionRouter(homeGroup)
+		InitSystemRouter(homeGroup)
+		InitRoleRouter(homeGroup)
+		InitMenuRouter(homeGroup)
+		InitDeptRouter(homeGroup)
+		InitPostRouter(homeGroup)
+		InitMonitorRouter(homeGroup)
+		InitSystemDictRouter(homeGroup)
+		InitSystemConfigRouter(homeGroup)
+	}
 
+	homeGroup.Use(middlewares.CasbinMiddleware())
+
+	//
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": 404,

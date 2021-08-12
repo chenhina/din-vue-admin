@@ -2,14 +2,12 @@ package mysql
 
 import (
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	"go.study.com/hina/giligili/models"
 	"go.study.com/hina/giligili/settings"
 	"go.uber.org/zap"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
-
-
 
 //var db *sqlx.DB
 //
@@ -41,27 +39,53 @@ func Init(cfg *settings.MySQLConfig) (err error) {
 		cfg.Port,
 		cfg.DB,
 	)
-	db, err = gorm.Open("mysql", dsn)
+	mysqlConfig := mysql.Config{
+		DSN:                       dsn,   // DSN data source name
+		DefaultStringSize:         191,   // string 类型字段的默认长度
+		DisableDatetimePrecision:  true,  // 禁用 datetime 精度，MySQL 5.6 之前的数据库不支持
+		DontSupportRenameIndex:    true,  // 重命名索引时采用删除并新建的方式，MySQL 5.7 之前的数据库和 MariaDB 不支持重命名索引
+		DontSupportRenameColumn:   true,  // 用 `change` 重命名列，MySQL 8 之前的数据库和 MariaDB 不支持重命名列
+		SkipInitializeWithVersion: false, // 根据版本自动配置
+	}
+	db, err = gorm.Open(mysql.New(mysqlConfig), gormConfig())
 	if err != nil {
 		zap.L().Error("connect db failed", zap.Error(err))
 		return
 	}
-	db.DB().SetMaxOpenConns(cfg.MaxOpenConns)
-	db.DB().SetMaxIdleConns(cfg.MaxIdleConns)
+	sqlDB, _ := db.DB()
+	sqlDB.SetMaxOpenConns(cfg.MaxOpenConns)
+	sqlDB.SetMaxIdleConns(cfg.MaxIdleConns)
 
-	migration()
-
+	err = migration()
 	return
 }
 
 // 执行数据迁移
-
-func migration() {
+func migration() error {
 	// 自动迁移模式
-	db.AutoMigrate(&models.Video{})
+	err := db.AutoMigrate(
+		models.SysUser{},
+		models.SysRole{},
+		models.SysDept{},
+		models.SysPost{},
+		models.SysMenu{},
+		models.SysConfigSettings{},
+		models.SysDictData{},
+		models.SysDictDetail{},
+		models.SysLoginInfo{},
+		models.SysSaveFile{},
+		models.SysMessage{},
+
+	)
+	return err
 
 }
 
-func Close() {
-	_ = db.Close()
+func GetDB() *gorm.DB {
+	return db
+}
+
+func gormConfig() *gorm.Config {
+	var config = &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true}
+	return config
 }

@@ -1,7 +1,5 @@
 package main
 
-
-
 import (
 	"context"
 	"flag"
@@ -9,6 +7,7 @@ import (
 	"go.study.com/hina/giligili/dao/mysql"
 	"go.study.com/hina/giligili/dao/redis"
 	"go.study.com/hina/giligili/logger"
+	"go.study.com/hina/giligili/pkg"
 	"go.study.com/hina/giligili/pkg/snowflake"
 	"go.study.com/hina/giligili/routes"
 	"go.study.com/hina/giligili/settings"
@@ -68,9 +67,8 @@ func main() {
 		fmt.Printf("init mysql failed, err:%#v\n", err)
 		return
 	}
-	defer mysql.Close()
 
-	// 4.初始化Redis连接
+	//4.初始化Redis连接
 	if err := redis.Init(settings.Conf.RedisConfig); err != nil {
 		fmt.Printf("init redis failed, err:%#v\n", err)
 		return
@@ -80,6 +78,12 @@ func main() {
 	// 初始化分布式ID生成器
 	if err := snowflake.Init(settings.Conf.StartTime, settings.Conf.MachineID); err != nil {
 		fmt.Printf("init snowflake failed, err:%#v\n", err)
+		return
+	}
+
+	// 初始化Casbin
+	if err := pkg.InitCasbin(); err != nil {
+		fmt.Printf("init casbin failed, err:%#v\n", err)
 		return
 	}
 

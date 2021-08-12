@@ -1,17 +1,30 @@
-
-name: "giligili"
+# 版本信息
+name: "admin后台管理"
 mode: "dev"
+host: "127.0.0.1"
 port: 8082
 version: "v0.0.1"
 start_time: "2021-07-17"
 machine_id: 1
-
+avatar_path: "./media/avatar/"
+excel_path: "media/excel/"
+save_file_path: "media/system/"
+jwt_prefix: "token:"
+# jwt配置
 auth:
   jwt_expire: 8760
+  secret_key: "Hina"
+
+
+# captcha configuration 验证码
+captcha:
+  key_long: 4
+  img_width: 250
+  img_height: 70
 
 log:
   level: "debug"
-  filename: "giligili.log"
+  filename: "hina.log"
   max_size: 200
   max_age: 30
   max_backups: 7
@@ -21,7 +34,7 @@ mysql:
   port: 3306
   user: "root"
   password: "123456"
-  db: "giligili"
+  db: "dva_gin"
   max_open_conns: 200
   max_idle_conns: 50
 
@@ -32,3 +45,6 @@ redis:
   db: 0
   pool_size: 100
   minidle_conns: 20
+
+md_secret: "高情已逐晓云空，不与梨花同梦"
+rbac_conf: "./conf/rbac.conf"

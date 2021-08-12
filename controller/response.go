@@ -16,7 +16,7 @@ import (
 type ResponseData struct {
 	Code ResCode     `json:"code"`
 	Msg  interface{} `json:"msg"`
-	Data interface{} `json:"data,omitempty"`  // 字段为空时会忽略该字段
+	Data interface{} `json:"data,omitempty"` // 字段为空时会忽略该字段
 }
 
 func ResponseError(c *gin.Context, code ResCode) {
@@ -39,6 +39,14 @@ func ResponseSuccess(c *gin.Context, data interface{}) {
 	c.JSON(http.StatusOK, &ResponseData{
 		Code: CodeSuccess,
 		Msg:  CodeSuccess.Msg(),
+		Data: data,
+	})
+}
+
+func ResponseSuccessWithMsg(c *gin.Context, msg string, data interface{}) {
+	c.JSON(http.StatusOK, &ResponseData{
+		Code: CodeSuccess,
+		Msg:  msg,
 		Data: data,
 	})
 }

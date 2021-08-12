@@ -13,12 +13,18 @@ type AppConfig struct {
 	Name         string `mapstructure:"name"`
 	Mode         string `mapstructure:"mode"`
 	Version      string `mapstructure:"version"`
-	StartTime string `mapstructure:"start_time"`
-	MachineID int64 `mapstructure:"machine_id"`
+	Host         string `mapstructure:"host"`
+	StartTime    string `mapstructure:"start_time"`
+	AvatarPath   string `mapstructure:"avatar_path"`
+	ExcelPath    string `mapstructure:"excel_path"`
+	SaveFilePath string `mapstructure:"save_file_path"`
+	JwtPrefix    string `mapstructure:"jwt_prefix"`
+	MachineID    int64  `mapstructure:"machine_id"`
 	Port         int    `mapstructure:"port"`
 	*LogConfig   `mapstructure:"log"`
 	*MySQLConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
+	*Captcha     `mapstructure:"captcha"`
 }
 
 type LogConfig struct {
@@ -40,12 +46,18 @@ type MySQLConfig struct {
 }
 
 type RedisConfig struct {
-	Host     string `mapstructure:"host"`
-	Password string `mapstructure:"password"`
-	Port     int    `mapstructure:"port"`
-	DB       int    `mapstructure:"db"`
-	PoolSize int    `mapstructure:"pool_size"`
-	MinIdleConns int `mapstructure:"minidle_conns"`
+	Host         string `mapstructure:"host"`
+	Password     string `mapstructure:"password"`
+	Port         int    `mapstructure:"port"`
+	DB           int    `mapstructure:"db"`
+	PoolSize     int    `mapstructure:"pool_size"`
+	MinIdleConns int    `mapstructure:"minidle_conns"`
+}
+
+type Captcha struct {
+	KeyLong   int `mapstructure:"key_long" json:"keyLong" yaml:"key_long"`       // 验证码长度
+	ImgWidth  int `mapstructure:"img_width" json:"imgWidth" yaml:"img_width"`    // 验证码宽度
+	ImgHeight int `mapstructure:"img_height" json:"imgHeight" yaml:"img_height"` // 验证码高度
 }
 
 func Init(filepath string) (err error) {

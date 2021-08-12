@@ -11,7 +11,7 @@ import (
 
 var TokenExpireDuration = viper.GetInt("auth.jwt_expire")
 
-var mySecret = []byte("雨送黄昏花易落")
+var mySecret = []byte(viper.GetString("auth.secret_key"))
 
 // MyClaims 自定义声明结构体并内嵌jwt.StandardClaims
 // jwt包自带的jwt.StandardClaims只包含了官方字段
