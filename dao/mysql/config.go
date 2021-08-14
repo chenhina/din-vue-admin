@@ -66,9 +66,9 @@ func GetSaveFile(m map[string]string) (data []*models.SysSaveFile, err error) {
 		queryByte := buffer.Bytes()
 		queryByte = queryByte[:len(queryByte)-4]
 		queryStr := string(queryByte)
-		err = db.Where(queryStr, args...).Find(&data).Error
+		err = db.Where(queryStr, args...).Order("id desc").Find(&data).Error
 	} else {
-		err = db.Find(&data).Error
+		err = db.Find(&data).Order("id desc").Error
 	}
 
 	return
@@ -105,5 +105,28 @@ func GetMessage(m map[string]string) (data []*models.SysMessage, err error) {
 		err = db.Preload("User").Find(&data).Error
 	}
 
+	return
+}
+
+func CreateMessage(message *models.SysMessage) (data *models.SysMessage, err error) {
+	err = db.Create(message).Error
+	return message, err
+}
+
+func GetOneMessage(pk int64) (data *models.SysMessage, err error) {
+	err = db.Where("id = ?", pk).First(&data).Error
+	return
+}
+
+func UpdateMessage(message *models.SysMessage, pk int64) (data *models.SysMessage, err error) {
+	err = db.Where("id = ?", pk).First(&models.SysMessage{}).
+		Select("UpdatedAt", "Title", "Content", "MessageType", "Status", "ToPath", "IsReviewed").
+		Updates(message).Error
+	return message, err
+}
+
+func DeleteMessage(ids []string) (err error) {
+	err = db.Delete(&models.SysMessage{}, ids).Error
+	err = db.Exec(`delete from sys_user_message where sys_message_id in ?`, ids).Error
 	return
 }

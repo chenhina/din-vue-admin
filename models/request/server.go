@@ -29,6 +29,15 @@ type Memory struct {
 	BaseInfo
 }
 
+type Os struct {
+	GOOS         string `json:"goos"`
+	Compiler     string `json:"compiler"`
+	GoVersion    string `json:"goVersion"`
+	NumCPU       int    `json:"numCpu"`
+	NumGoroutine int    `json:"numGoroutine"`
+}
+
+
 type ServerInfo struct {
 	Cpu *Cpu `json:"cpu"`
 	Disk []*Disk `json:"disk"`

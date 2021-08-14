@@ -6,6 +6,7 @@ import (
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
 	"go.study.com/hina/giligili/models/request"
+	"runtime"
 	"strconv"
 	"time"
 )
@@ -19,7 +20,7 @@ func GetCpuInfo() *request.Cpu {
 	cpuInfo := new(request.Cpu)
 	percent, _ := cpu.Percent(time.Second, false)
 	cpuInfo.Rate = getFloat2end(percent[0])
-	cpuInfo.Total = 6
+	cpuInfo.Total = runtime.NumCPU()
 	cpuInfo.Used = ""
 	cpuInfo.Unit = "核心"
 	return cpuInfo
@@ -57,4 +58,13 @@ func GetDiskInfo() []*request.Disk {
 	}
 	return res
 
+}
+
+func GetOsInfo() (o request.Os) {
+	o.GOOS = runtime.GOOS
+	o.NumCPU = runtime.NumCPU()
+	o.Compiler = runtime.Compiler
+	o.GoVersion = runtime.Version()
+	o.NumGoroutine = runtime.NumGoroutine()
+	return o
 }

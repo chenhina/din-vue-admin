@@ -75,6 +75,7 @@ func migration() error {
 		models.SysLoginInfo{},
 		models.SysSaveFile{},
 		models.SysMessage{},
+		models.SysOperationLog{},
 
 	)
 	return err

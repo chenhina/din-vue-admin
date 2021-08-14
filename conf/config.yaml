@@ -10,6 +10,7 @@ avatar_path: "./media/avatar/"
 excel_path: "media/excel/"
 save_file_path: "media/system/"
 jwt_prefix: "token:"
+key_location: "_location"
 # jwt配置
 auth:
   jwt_expire: 8760

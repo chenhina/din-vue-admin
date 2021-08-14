@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
 	github.com/StackExchange/wmi v1.2.1 // indirect
+	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/casbin/casbin/v2 v2.34.1
 	github.com/casbin/gorm-adapter/v3 v3.3.2
@@ -21,6 +22,7 @@ require (
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/onsi/gomega v1.14.0 // indirect
+	github.com/robfig/cron v1.2.0
 	github.com/shirou/gopsutil v3.21.7+incompatible
 	github.com/sony/sonyflake v1.0.0
 	github.com/spf13/viper v1.8.1

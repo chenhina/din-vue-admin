@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.study.com/hina/giligili/models/request"
 	"go.study.com/hina/giligili/utils"
+	"strconv"
 	"time"
 )
 
@@ -18,34 +19,35 @@ func MonitorEnabled(c *gin.Context) {
 }
 
 func ServerIP(c *gin.Context) {
+	os := utils.GetOsInfo()
 	data := make([]*request.ServerIP, 0, 5)
 	p2 := &request.ServerIP{
 		ID:     4,
-		IP:     "172.20.0.4",
-		Name:   "Hina",
-		OS:     "Windows",
-		Remark: "服务器1",
+		IP:     "127.0.0.4",
+		Name:   os.GoVersion,
+		OS:     os.GOOS,
+		Remark: strconv.Itoa(os.NumGoroutine),
 	}
 	p3 := &request.ServerIP{
 		ID:     3,
-		IP:     "172.20.0.3",
-		Name:   "Rui",
-		OS:     "Linux",
-		Remark: "服务器2",
+		IP:     "172.0.0.3",
+		Name:   os.GoVersion,
+		OS:     os.GOOS,
+		Remark: strconv.Itoa(os.NumGoroutine),
 	}
 	p4 := &request.ServerIP{
 		ID:     2,
-		IP:     "172.20.0.2",
-		Name:   "Lem",
-		OS:     "Mac",
-		Remark: "服务器3",
+		IP:     "172.0.0.2",
+		Name:   os.GoVersion,
+		OS:     os.GOOS,
+		Remark: strconv.Itoa(os.NumGoroutine),
 	}
 	p5 := &request.ServerIP{
 		ID:     1,
-		IP:     "172.20.0.1",
-		Name:   "EMT",
-		OS:     "windows Server",
-		Remark: "服务器4",
+		IP:     "172.0.0.1",
+		Name:   os.GoVersion,
+		OS:     os.GOOS,
+		Remark: strconv.Itoa(os.NumGoroutine),
 	}
 	data = append(data, p2, p3, p4, p5)
 
@@ -84,8 +86,6 @@ func ServerDateInfo(c *gin.Context) {
 	ResponseSuccess(c, data)
 
 }
-
-
 
 func TimerServerInfo(c *gin.Context) {
 	data := &request.TimerServerInfo{

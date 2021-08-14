@@ -5,7 +5,7 @@ import (
 	"go.study.com/hina/giligili/controller"
 )
 
-func InitPermissionRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
+func InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	BaseRouter := Router.Group("permission")
 	{
 		BaseRouter.GET("user/", controller.GetAllUsers)

@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.study.com/hina/giligili/logic"
 	"go.study.com/hina/giligili/models"
+	"go.study.com/hina/giligili/models/request"
 	"go.study.com/hina/giligili/settings"
 	"net/url"
 	"strconv"
@@ -195,4 +196,65 @@ func GetMessage(c *gin.Context) {
 	}
 
 	ResponseSuccess(c, data)
+}
+
+func CreateMessage(c *gin.Context) {
+	r := new(request.ReqMessage)
+	err := c.ShouldBindJSON(r)
+	if err != nil {
+		ResponseError(c,CodeInvalidParam)
+		return
+	}
+
+	data, err := logic.CreateMessage(r)
+	if err != nil {
+		ResponseErrorWithMsg(c, CodeServerBusy, "操作失败")
+		return
+	}
+	ResponseSuccess(c, data)
+
+}
+
+func GetOneMessage(c *gin.Context)  {
+	pk, err := getID(c)
+	if err != nil {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	data, err := logic.GetOneMessage(pk)
+	if err != nil {
+		ResponseErrorWithMsg(c, CodeServerBusy, "获取数据失败")
+		return
+	}
+	ResponseSuccess(c, data)
+}
+
+func UpdateMessage(c *gin.Context)  {
+	pk, err := getID(c)
+	if err != nil {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	r := new(request.ReqMessage)
+	err = c.ShouldBindJSON(r)
+	if err != nil {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	data, err := logic.UpdateMessage(r, pk)
+	if err != nil {
+		ResponseErrorWithMsg(c, CodeServerBusy, "修改数据失败")
+		return
+	}
+	ResponseSuccess(c, data)
+}
+
+func DeleteMessage(c *gin.Context)  {
+	ids := getIDs(c)
+	err := logic.DeleteMessage(ids)
+	if err != nil {
+		ResponseErrorWithMsg(c, CodeServerBusy, "删除数据失败")
+		return
+	}
+	ResponseSuccess(c, nil)
 }

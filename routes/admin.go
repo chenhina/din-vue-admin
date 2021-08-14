@@ -11,6 +11,8 @@ func InitAdminRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 		BaseRouter.GET("getInfo/", controller.GetInfo)
 		BaseRouter.POST("logout/", controller.Logout)
 		BaseRouter.GET("getRouters/", controller.GetRouters)
+		BaseRouter.GET("permission/dept/treeselect/", controller.GetDeptTreeSet)
+		BaseRouter.GET("permission/dept/roleDeptTreeselect/:id/", controller.GetDeptMenuTree)
 
 	}
 	return BaseRouter

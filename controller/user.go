@@ -54,10 +54,10 @@ func Login(c *gin.Context) {
 	if err != nil {
 		zap.L().Error("logic.Login failed", zap.String("username", p.Username), zap.Error(err))
 		if err == logic.ErrorWithCode {
-			ResponseErrorWithMsg(c, CodeInvalidParam, "验证码错误")
+			ResponseErrorWithMsgData(c, CodeInvalidParam, "验证码错误", p.Username)
 			return
 		}
-		ResponseError(c, CodeInvalidPassword)
+		ResponseErrorWithData(c, CodeInvalidPassword,p.Username)
 		return
 	}
 	ResponseSuccess(c, data)
@@ -204,7 +204,7 @@ func UpdateUserProfile(c *gin.Context) {
 }
 
 func ChangePassword(c *gin.Context) {
-	r:=new(request.ReqChangePassword)
+	r := new(request.ReqChangePassword)
 	err := c.ShouldBindJSON(r)
 	if err != nil {
 		ResponseError(c, CodeInvalidParam)
@@ -222,5 +222,3 @@ func ChangePassword(c *gin.Context) {
 	}
 	ResponseSuccess(c, nil)
 }
-
-

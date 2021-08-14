@@ -2,21 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="604247ed-328f-4a22-b0d9-162147cb3415" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/giligili.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ginrbac.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/inital.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/request.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/request.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/monitor.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/monitor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/mysql/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dao/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/mysql.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/mysql/role.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/role.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/mysql/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hina.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/logic/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/jwt/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/jwt/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middlewares/casbin.go" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/casbin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/casbin.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/casbin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/request/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/request/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/system.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/system.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/casbin.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/casbin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/base.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/base.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/dept.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/dept.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/monitor.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/monitor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings/settings.go" beforeDir="false" afterPath="$PROJECT_DIR$/settings/settings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +89,7 @@
       <recent name="D:\finallydev\ginberbac\middlewares" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\finallydev\ginberbac\pkg" />
       <recent name="D:\finallydev\ginberbac\models\response" />
     </key>
   </component>

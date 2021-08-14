@@ -62,17 +62,22 @@ func CreateRole(role *models.SysRole, menu []int) (data *models.SysRole, err err
 	sqlStr := `insert into sys_role_menu(sys_menu_id,sys_role_role_id) values`
 	s := BufferSave(sqlStr, menu, role.RoleId)
 	err = db.Exec(s).Error
+	sqlCasbin := `INSERT into casbin_rule (ptype,v0,v1,v2) (select "p",a.sys_role_role_id,b.interface_path,b.interface_method from sys_role_menu a, sys_menus b where a.sys_menu_id=b.id and a.sys_role_role_id = ? and b.interface_path is not null)`
+	err = db.Exec(sqlCasbin, role.RoleId).Error
 	return role, err
 }
 
 func UpdateRole(role *models.SysRole, menu, dept []int, pk int64) (data *models.SysRole, err error) {
 	err = db.Where("role_id = ?", pk).First(&models.SysRole{}).
-		Select("RoleName", "RoleKey", "Status", "RoleSort","UpdatedAt").Updates(role).Error
+		Select("RoleName", "RoleKey", "Status", "RoleSort", "UpdatedAt").Updates(role).Error
 	if len(menu) > 0 {
 		err = db.Exec(`delete from sys_role_menu where sys_role_role_id = ?`, pk).Error
 		sqlStr := `insert into sys_role_menu(sys_menu_id,sys_role_role_id) values`
 		s := BufferSave(sqlStr, menu, int32((pk)))
 		err = db.Exec(s).Error
+		err = db.Exec(`delete from casbin_rule where v0 = ?`, pk).Error
+		sqlCasbin := `INSERT into casbin_rule (ptype,v0,v1,v2) (select "p",a.sys_role_role_id,b.interface_path,b.interface_method from sys_role_menu a, sys_menus b where a.sys_menu_id=b.id and a.sys_role_role_id = ? and b.interface_path is not null)`
+		err = db.Exec(sqlCasbin, pk).Error
 	}
 	if len(dept) > 0 {
 		err = db.Exec(`delete from sys_role_dept where sys_role_role_id = ?`, pk).Error
@@ -94,5 +99,6 @@ func DeleteRole(id int32) (err error) {
 		return
 	}
 	err = db.Exec(`delete from sys_role_menu where sys_role_role_id = ?`, id).Error
+	err = db.Exec(`delete from casbin_rule where v0 = ?`, id).Error
 	return
 }

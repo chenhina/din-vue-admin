@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go.study.com/hina/giligili/dao/mysql"
 	"go.study.com/hina/giligili/models"
+	"go.study.com/hina/giligili/models/request"
 	"go.study.com/hina/giligili/models/response"
 	"go.study.com/hina/giligili/settings"
 	"mime/multipart"
@@ -113,4 +114,44 @@ func GetMessage(page, size int64, m map[string]string) (data *response.ResMessag
 		Result: res,
 	}
 	return
+}
+
+func CreateMessage(r *request.ReqMessage) (data *models.SysMessage, err error) {
+	message := &models.SysMessage{
+		BaseModel: models.BaseModel{
+			CreatedAt: getTime(),
+			UpdatedAt: getTime(),
+		},
+		Title:       r.Title,
+		Content:     r.Content,
+		MessageType: r.MessageType,
+		Status:      r.Status,
+		ToPath:      r.ToPath,
+		IsReviewed:  r.IsReviewed,
+	}
+	return mysql.CreateMessage(message)
+}
+
+func GetOneMessage(pk int64) (data *models.SysMessage, err error) {
+	return mysql.GetOneMessage(pk)
+}
+
+func UpdateMessage(r *request.ReqMessage, pk int64) (data *models.SysMessage, err error) {
+	message := &models.SysMessage{
+		BaseModel: models.BaseModel{
+			UpdatedAt: getTime(),
+		},
+		Title:       r.Title,
+		Content:     r.Content,
+		MessageType: r.MessageType,
+		Status:      r.Status,
+		ToPath:      r.ToPath,
+		IsReviewed:  r.IsReviewed,
+	}
+	return mysql.UpdateMessage(message,pk)
+
+}
+
+func DeleteMessage(ids []string)(err error)  {
+	return mysql.DeleteMessage(ids)
 }

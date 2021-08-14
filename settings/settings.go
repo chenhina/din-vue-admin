@@ -14,6 +14,7 @@ type AppConfig struct {
 	Mode         string `mapstructure:"mode"`
 	Version      string `mapstructure:"version"`
 	Host         string `mapstructure:"host"`
+	KeyLocation  string `mapstructure:"key_location"`
 	StartTime    string `mapstructure:"start_time"`
 	AvatarPath   string `mapstructure:"avatar_path"`
 	ExcelPath    string `mapstructure:"excel_path"`

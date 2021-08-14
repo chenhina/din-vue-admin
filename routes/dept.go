@@ -14,8 +14,6 @@ func InitDeptRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 		BaseRouter.PUT("dept/:id/", controller.UpdateDept)
 		BaseRouter.DELETE("dept/:id", controller.DeleteDept)
 		BaseRouter.POST("dept/", controller.CreateDept)
-		BaseRouter.GET("dept/treeselect/", controller.GetDeptTreeSet)
-		BaseRouter.GET("dept/roleDeptTreeselect/:id/", controller.GetDeptMenuTree)
 	}
 	return BaseRouter
 }

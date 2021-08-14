@@ -23,10 +23,10 @@ func UpdateCasbin(roleId string, casbinInfos []models.CasbinInfo) error {
 	rules := [][]string{}
 	for _, v := range casbinInfos {
 		cm := models.CasbinModel{
-			Ptype:       "p",
+			Ptype:  "p",
 			RoleId: roleId,
-			Path:        v.Path,
-			Method:      v.Method,
+			Path:   v.Path,
+			Method: v.Method,
 		}
 		rules = append(rules, []string{cm.RoleId, cm.Path, cm.Method})
 	}
@@ -86,24 +86,35 @@ var (
 )
 
 func Casbin() *casbin.Enforcer {
+	once.Do(func() {
+		a, _ := gormadapter.NewAdapterByDB(mysql.GetDB())
+		e, _ = casbin.NewEnforcer(viper.GetString("rbac_conf"), a)
+		e.AddFunction("ParamsMatch", ParamsMatchFunc)
+	})
+	_ = e.LoadPolicy()
 	return e
 }
 
-func InitCasbin() (err error) {
-	once.Do(func() {
-		a, err := gormadapter.NewAdapterByDB(mysql.GetDB())
-		if err != nil {
-			return
-		}
-		e, err = casbin.NewEnforcer(viper.GetString("rbac_conf"), a)
-		if err != nil {
-			return
-		}
-		e.AddFunction("ParamsMatch", ParamsMatchFunc)
-	})
-	err = e.LoadPolicy()
-	return
-}
+//func Casbin() *casbin.Enforcer {
+//	e.LoadPolicy()
+//	return e
+//}
+
+//func InitCasbin() (err error) {
+//	once.Do(func() {
+//		a, err := gormadapter.NewAdapterByDB(mysql.GetDB())
+//		if err != nil {
+//			return
+//		}
+//		e, err = casbin.NewEnforcer(viper.GetString("rbac_conf"), a)
+//		if err != nil {
+//			return
+//		}
+//
+//		e.AddFunction("ParamsMatch", ParamsMatchFunc)
+//	})
+//	return
+//}
 
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: ParamsMatch

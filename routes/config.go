@@ -20,6 +20,10 @@ func InitSystemConfigRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 		BaseRouter.DELETE("savefile/:id/",controller.DeleteSavaFile)
 
 		BaseRouter.GET("message/",controller.GetMessage)
+		BaseRouter.GET("message/:id/",controller.GetOneMessage)
+		BaseRouter.PUT("message/:id/",controller.UpdateMessage)
+		BaseRouter.DELETE("message/:id/",controller.DeleteMessage)
+		BaseRouter.POST("message/",controller.CreateMessage)
 	}
 	return BaseRouter
 }

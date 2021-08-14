@@ -35,23 +35,27 @@ func SetUp(mode string) *gin.Engine {
 	homeGroup.Use(middlewares.JWTAuthMiddleware()).Use(middlewares.CheckRedisToken())
 	{
 		InitAdminRouter(homeGroup)
-		InitPermissionRouter(homeGroup)
 		InitSystemRouter(homeGroup)
-		InitRoleRouter(homeGroup)
-		InitMenuRouter(homeGroup)
-		InitDeptRouter(homeGroup)
-		InitPostRouter(homeGroup)
 		InitMonitorRouter(homeGroup)
-		InitSystemDictRouter(homeGroup)
-		InitSystemConfigRouter(homeGroup)
+		InitSystemLogInfoRouter(homeGroup)
 	}
-
-	homeGroup.Use(middlewares.CasbinMiddleware())
+	adminGroup := homeGroup.Group("")
+	adminGroup.Use(middlewares.OperateInfo()).Use(middlewares.CasbinMiddleware())
+	{
+		InitUserRouter(adminGroup)
+		InitRoleRouter(adminGroup)
+		InitMenuRouter(adminGroup)
+		InitDeptRouter(adminGroup)
+		InitPostRouter(adminGroup)
+		InitSystemDictRouter(adminGroup)
+		InitSystemConfigRouter(adminGroup)
+	}
 
 	//
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"msg": 404,
+			"code": 404,
+			"msg":  "这里没有您想要的东西哦",
 		})
 	})
 

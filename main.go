@@ -80,12 +80,14 @@ func main() {
 		fmt.Printf("init snowflake failed, err:%#v\n", err)
 		return
 	}
-
 	// 初始化Casbin
-	if err := pkg.InitCasbin(); err != nil {
-		fmt.Printf("init casbin failed, err:%#v\n", err)
-		return
-	}
+	//if err := pkg.InitCasbin(); err != nil {
+	//	fmt.Printf("init casbin failed, err:%#v\n", err)
+	//	return
+	//}
+
+	// 执行定时任务
+	go pkg.Task()
 
 	// 5.注册路由
 	r := routes.SetUp(settings.Conf.Mode)

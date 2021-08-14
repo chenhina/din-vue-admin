@@ -27,11 +27,27 @@ func ResponseError(c *gin.Context, code ResCode) {
 	})
 }
 
+func ResponseErrorWithData(c *gin.Context, code ResCode,data interface{}) {
+	c.JSON(http.StatusOK, &ResponseData{
+		Code: code,
+		Msg:  code.Msg(),
+		Data: data,
+	})
+}
+
 func ResponseErrorWithMsg(c *gin.Context, code ResCode, msg interface{}) {
 	c.JSON(http.StatusOK, &ResponseData{
 		Code: code,
 		Msg:  msg,
 		Data: nil,
+	})
+}
+
+func ResponseErrorWithMsgData(c *gin.Context, code ResCode, msg interface{},data interface{}) {
+	c.JSON(http.StatusOK, &ResponseData{
+		Code: code,
+		Msg:  msg,
+		Data: data,
 	})
 }
 

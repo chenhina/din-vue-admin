@@ -166,3 +166,12 @@ func SaveAvatar(uid int64, fileName string) (err error) {
 	err = db.Where("user_id = ?", uid).First(&models.SysUser{}).Update("avatar", fileName).Error
 	return
 }
+
+func GetUserIDbyUserName(username string) (userID int64) {
+	var user *models.SysUser
+	err := db.Where("username = ?",username).First(&user).Error
+	if err != nil {
+		return
+	}
+	return user.UserID
+}
