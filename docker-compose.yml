@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx
+    container_name: grbac_nginx
+    ports:
+      - "80:80"
+      - "8000:8000"
+    restart: always
+    volumes:
+      - ./dinvue/dist:/var/www/html
+      - ./docker_compose_files/nginx:/etc/nginx/conf.d
+    depends_on:
+      - gin_app
+    networks:
+      - web
+
+  gin_app:
+    build:
+      context: ./ginberbac
+      dockerfile: Dockerfile
+    container_name: rbac_gin
+    #    command: python manage_pro.py makemigrations && python manage_pro.py migrate && uwsgi ./luffy.ini
+    restart: always
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./ginberbac:/soft
+
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - web
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "26379:6379"
+    networks:
+      - web
+  mysql:
+    image: mysql:8.0.19
+    container_name: mysql
+    restart: always
+    ports:
+      - "33306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "dva_gin"
+      MYSQL_PASSWORD: "123456"
+    volumes:
+      - ./docker_compose_files/mysql/data:/var/lib/mysql
+      - ./docker_compose_files/mysql/logs:/var/log/mysql
+    networks:
+      - web
+
+networks:
+  web:
