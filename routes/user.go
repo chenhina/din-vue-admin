@@ -14,9 +14,6 @@ func InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 		BaseRouter.DELETE("user/:id/", controller.DeleteUser)
 		BaseRouter.GET("user/details/", controller.GetPostDept)
 		BaseRouter.GET("user/export/", controller.ExportData)
-		BaseRouter.GET("user/profile/", controller.GetUserProfile)
-		BaseRouter.PUT("user/profile/", controller.UpdateUserProfile)
-		BaseRouter.PUT("user/profile/updatePwd/", controller.ChangePassword)
 	}
 	return BaseRouter
 }

@@ -13,6 +13,7 @@ import (
 	"strings"
 )
 
+// LoginInfo 登录日志中间件
 func LoginInfo() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		ip := c.ClientIP()
@@ -87,6 +88,7 @@ var Modular = map[string]string{"user": "用户管理", "role": "角色管理", 
 	"dict": "字典管理", "config": "参数管理", "savefile": "文件管理", "message": "消息通知",
 }
 
+// OperateInfo 操作日志中间件
 func OperateInfo() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		writer := responseBodyWriter{

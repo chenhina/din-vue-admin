@@ -11,11 +11,13 @@ import (
 	"time"
 )
 
+// 保留两位小数
 func getFloat2end(num float64) float64 {
 	res, _ := strconv.ParseFloat(fmt.Sprintf("%.2f", num), 64)
 	return res
 }
 
+// GetCpuInfo 获取cpu信息
 func GetCpuInfo() *request.Cpu {
 	cpuInfo := new(request.Cpu)
 	percent, _ := cpu.Percent(time.Second, false)
@@ -26,6 +28,7 @@ func GetCpuInfo() *request.Cpu {
 	return cpuInfo
 }
 
+// GetMemInfo 获取内存信息
 func GetMemInfo() *request.Memory {
 	memoryInfo := new(request.Memory)
 	info, _ := mem.VirtualMemory()
@@ -38,6 +41,7 @@ func GetMemInfo() *request.Memory {
 
 }
 
+// GetDiskInfo 获取磁盘信息
 func GetDiskInfo() []*request.Disk {
 	res := make([]*request.Disk, 0, 4)
 	var diskInfo *request.Disk
@@ -60,6 +64,7 @@ func GetDiskInfo() []*request.Disk {
 
 }
 
+// GetOsInfo获取操作系统相关信息
 func GetOsInfo() (o request.Os) {
 	o.GOOS = runtime.GOOS
 	o.NumCPU = runtime.NumCPU()

@@ -19,7 +19,7 @@ func CasbinMiddleware() gin.HandlerFunc {
 		user, _ := mysql.GetUserByID(user_id.(int64))
 		// 获取用户的角色
 		sub := user.RoleId
-		if sub == 1 {
+		if sub == 1 {  // admin 直接放行
 			c.Next()
 		} else {
 			// 获取请求的url

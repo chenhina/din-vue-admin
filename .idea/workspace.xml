@@ -2,9 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="604247ed-328f-4a22-b0d9-162147cb3415" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dva_gin.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/giligili.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hina.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hina.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/config_bak.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config_env.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker_compose_files/nginx/default.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/logic/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/avatar/-2638810865209344.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/media/avatar/-2638810865209344.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/avatar/2638810865209344.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/media/avatar/2638810865209344.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/excel/data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/media/excel/data.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middlewares/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/token.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/cron.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/cron.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,17 +68,18 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="goland.project.structure" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\finallydev\ginberbac\routes" />
       <recent name="D:\finallydev\ginberbac" />
+      <recent name="D:\finallydev\ginberbac\routes" />
       <recent name="D:\finallydev\ginberbac\media\avatar" />
       <recent name="D:\finallydev\ginberbac\middlewares" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\finallydev\ginberbac" />
       <recent name="D:\finallydev\ginberbac\pkg" />
       <recent name="D:\finallydev\ginberbac\models\response" />
     </key>

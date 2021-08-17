@@ -6,12 +6,14 @@ type NewModel struct {
 	Remark string `json:"remark" gorm:"commen:备注"`
 }
 
+// SysDictData 字典相关
 type SysDictData struct {
 	NewModel
 	DictName string `json:"dictName" gorm:"commen:字典名称"`
 	DictType string `json:"dictType" gorm:"commen:字典类型"`
 }
 
+// SysDictDetail 字典详情相关
 type SysDictDetail struct {
 	NewModel
 	DictLabel  string      `json:"dictLabel" gorm:"commen:字典标签"`
@@ -22,6 +24,7 @@ type SysDictDetail struct {
 	DictDataID int         `json:"dict_data" gorm:"comment:关联字典数据"`
 }
 
+// SysConfigSettings 参数相关
 type SysConfigSettings struct {
 	NewModel
 	ConfigName  string `json:"configName" gorm:"common:参数名称"`
@@ -30,6 +33,7 @@ type SysConfigSettings struct {
 	ConfigType  string `json:"configType" gorm:"common:是否内置"`
 }
 
+// SysSaveFile 文件相关
 type SysSaveFile struct {
 	BaseModel
 	Status  bool   `json:"status" gorm:"common:文件是否存在"`
@@ -43,6 +47,7 @@ type SysSaveFile struct {
 	FileUrl string `json:"file_url" gorm:"-"`
 }
 
+// SysMessage 消息相关
 type SysMessage struct {
 	BaseModel
 	Title       string    `json:"title" gorm:"common:通知标题"`
@@ -55,6 +60,7 @@ type SysMessage struct {
 	Users       []uint    `json:"user" gorm:"-"`
 }
 
+// SysLoginInfo 登录日志相关
 type SysLoginInfo struct {
 	BaseModel
 	UserID        int64  `json:"user_id" gorm:"common:用户id"`
@@ -67,6 +73,7 @@ type SysLoginInfo struct {
 	Status        bool   `json:"status" gorm:"deatult:false;common:登录状态"`
 }
 
+// SysOperationLog 操作日志相关
 type SysOperationLog struct {
 	BaseModel
 	CreatorName     string `json:"creator_name" gorm:"操作人员"`

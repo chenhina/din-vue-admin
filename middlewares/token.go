@@ -19,7 +19,6 @@ func CheckRedisToken() func(c *gin.Context) {
 		key := fmt.Sprintf("%s%d", settings.Conf.JwtPrefix, uid)
 		err := redis.CheckToken(key)
 		if err != nil {
-			fmt.Println(err)
 			controller.ResponseError(c, controller.CodeInvalidToken)
 			c.Abort()
 			return

@@ -38,23 +38,19 @@ import (
 // @BasePath hina/path
 func main() {
 
-	//if len(os.Args) < 2 {
-	//	fmt.Println("need config filepath. eg: xx config.yaml")
-	//	return
-	//}
 
+	// 解析命令行参数 启动时可以指定配置文件 不指定默认conf下的config.yaml文件
 	var filepath string
 	flag.StringVar(&filepath, "filepath", "conf/config.yaml", "文件路径")
-	// 解析命令行参数
 	flag.Parse()
 
-	// 1.加载配置文件(元成配置)
+	// 1.加载配置文件(使用viper管理配置项)
 	if err := settings.Init(filepath); err != nil {
 		fmt.Printf("init settings failed, err:%#v\n", err)
 		return
 	}
 
-	// 2.初始化日志
+	// 2.初始化全局日志管理
 	if err := logger.Init(settings.Conf.LogConfig, settings.Conf.Mode); err != nil {
 		fmt.Printf("init logger failed, err:%#v\n", err)
 		return
@@ -86,10 +82,10 @@ func main() {
 	//	return
 	//}
 
-	// 执行定时任务
+	// 起一个线程执行定时任务
 	go pkg.Task()
 
-	// 5.注册路由
+	// 5.路由
 	r := routes.SetUp(settings.Conf.Mode)
 
 	// 6.启动服务(优雅关机)

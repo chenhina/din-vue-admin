@@ -19,19 +19,22 @@ func SetUp(mode string) *gin.Engine {
 		fmt.Printf("init validator trans failed, err:%v\n", err)
 	}
 	r := gin.New()
+	// 使用自己定制的日志中间件和recover中间件
 	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+	// 解决跨域问题
 	r.Use(middlewares.Cors())
 
+	// 静态文件
 	r.StaticFS("/media", http.Dir("./media"))
 
 	baseGroup := r.Group("")
 	{
-		// 登录
+		// 登录相关
 		InitBaseRouter(baseGroup)
 	}
 
 	homeGroup := r.Group("admin")
-	// jwt鉴权与casbin权限管理
+	// jwt鉴权与黑名单功能中间件
 	homeGroup.Use(middlewares.JWTAuthMiddleware()).Use(middlewares.CheckRedisToken())
 	{
 		InitAdminRouter(homeGroup)
@@ -40,6 +43,7 @@ func SetUp(mode string) *gin.Engine {
 		InitSystemLogInfoRouter(homeGroup)
 	}
 	adminGroup := homeGroup.Group("")
+	// 操作日志记录与Casbin权限管理中间件
 	adminGroup.Use(middlewares.OperateInfo()).Use(middlewares.CasbinMiddleware())
 	{
 		InitUserRouter(adminGroup)

@@ -1,5 +1,6 @@
 package main
 
+// 索尼基于雪花算法的分布式ID 差别在于能用137年而雪花算法只能使用69年但雪花算法支持一ms内生成id的机器数多
 import (
 	"fmt"
 	"github.com/sony/sonyflake"
@@ -41,11 +42,12 @@ func GenID() (id uint64, err error) {
 	return
 }
 
-func main() {
-	if err := Init("2020-05-22", 1); err != nil {
-		fmt.Printf("Init failed,err:%v\n", err)
-		return
-	}
-	id, _ := GenID()
-	fmt.Println(id)
-}
+// 测试
+//func main() {
+//	if err := Init("2020-05-22", 1); err != nil {
+//		fmt.Printf("Init failed,err:%v\n", err)
+//		return
+//	}
+//	id, _ := GenID()
+//	fmt.Println(id)
+//}

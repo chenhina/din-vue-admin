@@ -1,60 +1,128 @@
+#version: "3"
+#
+#services:
+#  nginx:
+#    image: nginx
+#    container_name: grbac_nginx
+#    ports:
+#      - "80:80"
+#    restart: always
+#    volumes:
+#      - ./din-vue/dist:/var/www/html
+#      - ./docker_compose_files/nginx:/etc/nginx/conf.d
+#    depends_on:
+#      - gin_app
+#    networks:
+#      - web
+#
+#  gin_app:
+#    build:
+#      context: ./din-vue-admin
+#      dockerfile: ./Dockerfile
+#    container_name: rbac_gin
+#    restart: always
+#    ports:
+#      - "8082:8082"
+#    depends_on:
+#      - mysql
+#      - redis
+#    networks:
+#      - web
+#
+#
+#  redis:
+#    image: redis:latest
+#    container_name: redis
+#    ports:
+#      - "26379:6379"
+#    volumes:
+#      - ./docker_compose_files/redis/data:./data
+#    networks:
+#      - web
+#
+#  mysql:
+#    image: mysql:8.0.19
+#    container_name: mysql
+#    restart: always
+#    ports:
+#      - "13306:3306"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: "123456"
+#      MYSQL_DATABASE: "dva_gin"
+#      MYSQL_PASSWORD: "123456"
+#    volumes:
+#      - ./docker_compose_files/mysql/data:/var/lib/mysql
+#      - ./docker_compose_files/mysql/logs:/var/log/mysql
+#    networks:
+#      - web
+#
+#networks:
+#  web:
+
+
 version: "3"
 
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: '177.7.0.0/16'
+
 services:
-  nginx:
-    image: nginx
-    container_name: grbac_nginx
-    ports:
-      - "80:80"
-      - "8000:8000"
-    restart: always
-    volumes:
-      - ./dinvue/dist:/var/www/html
-      - ./docker_compose_files/nginx:/etc/nginx/conf.d
-    depends_on:
-      - gin_app
-    networks:
-      - web
-
-  gin_app:
+  web:
     build:
-      context: ./ginberbac
-      dockerfile: Dockerfile
-    container_name: rbac_gin
-    #    command: python manage_pro.py makemigrations && python manage_pro.py migrate && uwsgi ./luffy.ini
+      context: ./din-vue
+      dockerfile: ./Dockerfile
+    container_name: dva-web
     restart: always
     ports:
-      - "8082:8082"
-    volumes:
-      - ./ginberbac:/soft
+      - '8080:8080'
+    depends_on:
+      - server
+    command: [ 'nginx-debug', '-g', 'daemon off;' ]
+    networks:
+      network:
+        ipv4_address: 177.7.0.11
 
+  server:
+    build:
+      context: ./din-vue-admin
+      dockerfile: ./Dockerfile
+    container_name: dva-server
+    restart: always
+    ports:
+      - '8082:8082'
     depends_on:
       - mysql
       - redis
+    links:
+      - mysql
+      - redis
     networks:
-      - web
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - "26379:6379"
-    networks:
-      - web
+      network:
+        ipv4_address: 177.7.0.12
+
   mysql:
-    image: mysql:8.0.19
-    container_name: mysql
+    image: mysql:8.0.21
+    container_name: dva-mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
     restart: always
     ports:
-      - "33306:3306"
+      - "13306:3306"  # host物理直接映射端口为13306
     environment:
-      MYSQL_ROOT_PASSWORD: "123456"
-      MYSQL_DATABASE: "dva_gin"
-      MYSQL_PASSWORD: "123456"
-    volumes:
-      - ./docker_compose_files/mysql/data:/var/lib/mysql
-      - ./docker_compose_files/mysql/logs:/var/log/mysql
+      MYSQL_DATABASE: 'dva_gin' # 初始化启动时要创建的数据库的名称
+      MYSQL_ROOT_PASSWORD: 'Hina520+' # root管理员用户密码
     networks:
-      - web
+      network:
+        ipv4_address: 177.7.0.13
 
-networks:
-  web:
+  redis:
+    image: redis:6.0.6
+    container_name: gva-redis # 容器名
+    restart: always
+    ports:
+      - '16379:6379'
+    networks:
+      network:
+        ipv4_address: 177.7.0.14

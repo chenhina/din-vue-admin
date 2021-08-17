@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// RateLimitMiddleWare 基于令牌桶实现的限流中间件
 func RateLimitMiddleWare(fillInterval time.Duration, cap int64) func(c *gin.Context) {
 	bucket := ratelimit.NewBucket(fillInterval, cap)
 	return func(c *gin.Context) {

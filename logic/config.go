@@ -82,7 +82,7 @@ func CreateSaveFile(fileName string, fileObj *multipart.FileHeader) (data *model
 		Size:    strconv.Itoa(int(fileObj.Size)),
 		Address: "本地存储",
 		Source:  "用户上传",
-		File:    fmt.Sprintf("%s%d/%s", settings.Conf.Host, settings.Conf.Port, fileName),
+		File:    fmt.Sprintf("http://%s:%d/%s", settings.Conf.Host, settings.Conf.Port, fileName),
 	}
 
 	return mysql.CreateSaveFile(file)
@@ -148,10 +148,10 @@ func UpdateMessage(r *request.ReqMessage, pk int64) (data *models.SysMessage, er
 		ToPath:      r.ToPath,
 		IsReviewed:  r.IsReviewed,
 	}
-	return mysql.UpdateMessage(message,pk)
+	return mysql.UpdateMessage(message, pk)
 
 }
 
-func DeleteMessage(ids []string)(err error)  {
+func DeleteMessage(ids []string) (err error) {
 	return mysql.DeleteMessage(ids)
 }

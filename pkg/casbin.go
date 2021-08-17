@@ -73,6 +73,7 @@ func GetPolicyPathByAuthorityId(authorityId string) (pathMaps []models.CasbinInf
 //@param: v int, p ...string
 //@return: bool
 
+
 func ClearCasbin(v int, p ...string) bool {
 	e := Casbin()
 	success, _ := e.RemoveFilteredPolicy(v, p...)
@@ -85,6 +86,7 @@ var (
 	once sync.Once
 )
 
+// Casbin 单例模式 生成casbin对象 并使用相关功能
 func Casbin() *casbin.Enforcer {
 	once.Do(func() {
 		a, _ := gormadapter.NewAdapterByDB(mysql.GetDB())

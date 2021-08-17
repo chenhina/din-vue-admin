@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 )
 
-//主函数
+//
 func Task() {
 	cron2 := cron.New() //创建一个cron实例
 	//执行定时任务（每天0点执行一次）
